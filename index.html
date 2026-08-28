@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCM Super AI - 85 Languages</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen">
+<div class="p-4 max-w-6xl mx-auto">
+  <div class="flex justify-between items-center border-b border-gray-700 pb-4">
+    <h1 class="text-2xl font-bold">🧪 PCM Super AI - Class 1 to PhD</h1>
+    <select id="lang" class="bg-gray-800 p-2 rounded border">
+      <option value="en">🇺🇸 English</option>
+      <option value="hi">🇮🇳 हिन्दी</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ar">🇸🇦 العربية</option>
+      <option value="bn">🇧🇩 বাংলা</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="pt">🇵🇹 Português</option>
+      <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
+      <option value="te">🇮🇳 తెలుగు</option>
+      <option value="ta">🇮🇳 தமிழ்</option>
+      <option value="mr">🇮🇳 मराठी</option>
+      <option value="ur">🇵🇰 اردو</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="vi">🇻🇳 Tiếng Việt</option>
+      <option value="id">🇮🇩 Indonesia</option>
+    </select>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4 mt-6">
+    <button onclick="setSub('chemistry')" class="bg-blue-600 p-4 rounded-xl font-bold">🧪 Chemistry Lab</button>
+    <button onclick="setSub('physics')" class="bg-green-600 p-4 rounded-xl font-bold">⚛️ Physics Lab</button>
+    <button onclick="setSub('maths')" class="bg-purple-600 p-4 rounded-xl font-bold">📐 Maths Lab</button>
+  </div>
+
+  <div class="mt-6">
+    <h2 class="text-xl font-bold mb-2">Periodic Table - Touch Element</h2>
+    <input id="search" placeholder="Search H, Oxygen..." class="w-full p-2 rounded bg-gray-800 border border-gray-700 mb-2" oninput="renderTable()">
+    <div id="periodic" class="grid grid-cols-10 gap-2"></div>
+  </div>
+
+  <div class="mt-8 border border-gray-700 rounded-xl p-4">
+    <div id="chat" class="h-72 overflow-auto bg-gray-900 p-3 rounded mb-3"></div>
+    <div class="flex gap-2">
+      <input id="input" class="flex-1 p-3 rounded bg-gray-800 border border-gray-700" placeholder="Ask: H2SO4 Lewis structure, Newton law...">
+      <button onclick="askAI()" class="bg-white text-black px-6 rounded font-bold">Ask</button>
+    </div>
+    <input id="api" placeholder="Paste Gemini API Key here" class="w-full mt-3 p-2 rounded bg-gray-800 border text-sm">
+  </div>
+
+  <!-- TELEGRAM BOX - AB SAHI JAGAH PE -->
+  <div class="mt-6 border border-yellow-600 rounded-xl p-4 bg-gray-900">
+    <h3 class="font-bold text-yellow-400">📲 Telegram Bot जोड़ो</h3>
+    <input id="botToken" placeholder="BotFather वाला Token डालो यहाँ" class="w-full mt-2 p-2 rounded bg-gray-800 border">
+    <button onclick="connectTelegram()" class="mt-2 bg-yellow-500 text-black px-4 py-2 rounded font-bold w-full">Telegram Connect करो</button>
+    <p id="tgStatus" class="text-sm mt-2 text-gray-400"></p>
+  </div>
+
+</div>
+
+<script>
+const elements = [
+ {n:1,s:'H',name:'Hydrogen',m:1.008,c:'1s1'},{n:2,s:'He',name:'Helium',m:4.0026,c:'1s2'},
+ {n:3,s:'Li',name:'Lithium',m:6.94,c:'[He]2s1'},{n:6,s:'C',name:'Carbon',m:12.011,c:'[He]2s2 2p2'},
+ {n:8,s:'O',name:'Oxygen',m:15.999,c:'[He]2s2 2p4'},{n:11,s:'Na',name:'Sodium',m:22.99,c:'[Ne]3s1'},
+ {n:17,s:'Cl',name:'Chlorine',m:35.45,c:'[Ne]3s2 3p5'},{n:26,s:'Fe',name:'Iron',m:55.845,c:'[Ar]3d6 4s2'},
+ {n:79,s:'Au',name:'Gold',m:196.97,c:'[Xe]4f14 5d10 6s1'},{n:92,s:'U',name:'Uranium',m:238.02,c:'[Rn]5f3 6d1 7s2'},
+];
+let subject='chemistry';
+function setSub(s){subject=s; alert(s+' selected: '+s);}
+
+function renderTable(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const div=document.getElementById('periodic'); div.innerHTML='';
+  elements.filter(e=> e.s.toLowerCase().includes(q) || e.name.toLowerCase().includes(q)).forEach(e=>{
+    const el=document.createElement('div');
+    el.className='bg-gray-800 p-2 rounded text-center cursor-pointer hover:bg-gray-700';
+    el.innerHTML=`<div class='font-bold'>${e.s}</div><div class='text-xs'>${e.n}</div>`;
+    el.onclick=()=>{document.getElementById('chat').innerHTML+=`<div class='mb-2'><b>${e.name} (${e.s}):</b> Mass ${e.m}, Config ${e.c}</div>`};
+    div.appendChild(el);
+  });
+}
+renderTable();
+
+async function askAI(){
+  const input=document.getElementById('input').value;
+  const lang=document.getElementById('lang').value;
+  const key=document.getElementById('api').value;
+  if(!input) return; if(!key) return alert('API Key डालो');
+  const chat=document.getElementById('chat');
+  chat.innerHTML+=`<div class='text-right mb-2 text-blue-300'>You: ${input}</div>`;
+  document.getElementById('input').value='';
+  const prompt=`You are PhD expert in ${subject}. From Class 1 to PhD. Reply in language code ${lang}. Question: ${input}`;
+  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+  });
+  const data=await res.json();
+  let reply=data.candidates?.[0]?.content?.parts?.[0]?.text || 'Error';
+  chat.innerHTML+=`<div class='mb-3 text-green-300'><b>${subject} AI:</b> ${reply}</div>`;
+  chat.scrollTop=chat.scrollHeight;
+}
+
+async function connectTelegram(){
+  const token = document.getElementById('botToken').value;
+  const geminiKey = document.getElementById('api').value;
+  const lang = document.getElementById('lang').value;
+  if(!token) return alert('Token डालो');
+  if(!geminiKey) return alert('पहले Gemini Key डालो');
+  const workerUrl = prompt("अपना Cloudflare Worker URL डालो:");
+  if(!workerUrl) return;
+  const res = await fetch(`https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(workerUrl + '?token=' + token + '&key=' + geminiKey + '&lang=' + lang)}`);
+  const data = await res.json();
+  document.getElementById('tgStatus').innerText = data.ok? "✅ Telegram Connect हो गया! अब Telegram में /start भेजो" : "❌ Error: " + JSON.stringify(data);
+}
+</script>
+</body>
+</html>
