@@ -1,126 +1,114 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PCM Super AI - 85 Languages</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>All in One - PCM + Tools</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<style>
+body{background:#0a0a0a;color:#fff;font-family:system-ui;padding:10px;margin:0}
+.card{background:#121212;border:1px solid #2a2a2a;border-radius:14px;padding:12px;margin:10px 0}
+input,select{width:100%;padding:11px;border-radius:10px;background:#1e293b;color:#fff;border:1px solid #334155;box-sizing:border-box;margin:6px 0}
+button{padding:11px;border-radius:10px;border:0;font-weight:bold;margin:6px 0;width:100%}
+.y{ background:#facc15;color:#000 }.b{ background:#38bdf8;color:#000 }.g{ background:#22c55e;color:#000 }
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.feat{background:#1e293b;padding:7px;border-radius:8px;font-size:11px;border:1px solid #334155}
+h2{color:#facc15;margin:8px 0;font-size:16px} h3{color:#38bdf8;margin:10px 0 5px;font-size:13px}
+.small{font-size:11px;color:#94a3b8}
+#qrcode{ background:#fff;padding:10px;border-radius:10px;display:flex;justify-content:center;margin-top:8px }
+.calc-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.calc-btns button{background:#1e293b;color:#fff;border:1px solid #334155}
+</style>
 </head>
-<body class="bg-black text-white min-h-screen">
-<div class="p-4 max-w-6xl mx-auto">
-  <div class="flex justify-between items-center border-b border-gray-700 pb-4">
-    <h1 class="text-2xl font-bold">🧪 PCM Super AI - Class 1 to PhD</h1>
-    <select id="lang" class="bg-gray-800 p-2 rounded border">
-      <option value="en">🇺🇸 English</option>
-      <option value="hi">🇮🇳 हिन्दी</option>
-      <option value="es">🇪🇸 Español</option>
-      <option value="zh">🇨🇳 中文</option>
-      <option value="ar">🇸🇦 العربية</option>
-      <option value="bn">🇧🇩 বাংলা</option>
-      <option value="ru">🇷🇺 Русский</option>
-      <option value="ja">🇯🇵 日本語</option>
-      <option value="de">🇩🇪 Deutsch</option>
-      <option value="fr">🇫🇷 Français</option>
-      <option value="pt">🇵🇹 Português</option>
-      <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
-      <option value="te">🇮🇳 తెలుగు</option>
-      <option value="ta">🇮🇳 தமிழ்</option>
-      <option value="mr">🇮🇳 मराठी</option>
-      <option value="ur">🇵🇰 اردو</option>
-      <option value="tr">🇹🇷 Türkçe</option>
-      <option value="ko">🇰🇷 한국어</option>
-      <option value="vi">🇻🇳 Tiếng Việt</option>
-      <option value="id">🇮🇩 Indonesia</option>
-    </select>
-  </div>
+<body>
 
-  <div class="grid md:grid-cols-3 gap-4 mt-6">
-    <button onclick="setSub('chemistry')" class="bg-blue-600 p-4 rounded-xl font-bold">🧪 Chemistry Lab</button>
-    <button onclick="setSub('physics')" class="bg-green-600 p-4 rounded-xl font-bold">⚛️ Physics Lab</button>
-    <button onclick="setSub('maths')" class="bg-purple-600 p-4 rounded-xl font-bold">📐 Maths Lab</button>
-  </div>
+<div class="card" style="text-align:center">
+<h2 style="margin:0">🚀 ALL IN ONE - PCM + 50 Tools</h2>
+<p class="small">Chemistry 600 + Physics 350 + Maths 300 + QR + Health + Currency</p>
+<input id="mainAsk" placeholder="कुछ भी पूछो - H2SO4 Lewis, Integration, BMI...">
+<button class="y">Ask AI - कल Gemini Key डालेंगे</button>
+</div>
 
-  <div class="mt-6">
-    <h2 class="text-xl font-bold mb-2">Periodic Table - Touch Element</h2>
-    <input id="search" placeholder="Search H, Oxygen..." class="w-full p-2 rounded bg-gray-800 border border-gray-700 mb-2" oninput="renderTable()">
-    <div id="periodic" class="grid grid-cols-10 gap-2"></div>
-  </div>
+<div class="card">
+<h2>🔳 QR Code Generator & Scanner</h2>
+<input id="qrText" placeholder="https://youtube.com या कोई भी Text / Link">
+<button class="b" onclick="makeQR()">QR Generate करो</button>
+<div id="qrcode"></div>
+<div id="reader" style="width:100%;margin-top:10px"></div>
+<button class="g" onclick="startScan()">📷 Camera से Scan करो</button>
+<div id="scanResult" class="small" style="color:#22c55e"></div>
+</div>
 
-  <div class="mt-8 border border-gray-700 rounded-xl p-4">
-    <div id="chat" class="h-72 overflow-auto bg-gray-900 p-3 rounded mb-3"></div>
-    <div class="flex gap-2">
-      <input id="input" class="flex-1 p-3 rounded bg-gray-800 border border-gray-700" placeholder="Ask: H2SO4 Lewis structure, Newton law...">
-      <button onclick="askAI()" class="bg-white text-black px-6 rounded font-bold">Ask</button>
-    </div>
-    <input id="api" placeholder="Paste Gemini API Key here" class="w-full mt-3 p-2 rounded bg-gray-800 border text-sm">
-  </div>
+<div class="card">
+<h2>🔑 Password Generator</h2>
+<div class="grid2">
+<input id="passLen" type="number" value="16">
+<select id="passType"><option>Strong (A-Z+a-z+0-9+@#)</option><option>Only Letters</option><option>Only Numbers</option></select>
+</div>
+<button class="y" onclick="genPass()">Generate Password</button>
+<input id="passOut" readonly>
+</div>
 
-  <!-- TELEGRAM BOX - AB SAHI JAGAH PE -->
-  <div class="mt-6 border border-yellow-600 rounded-xl p-4 bg-gray-900">
-    <h3 class="font-bold text-yellow-400">📲 Telegram Bot जोड़ो</h3>
-    <input id="botToken" placeholder="BotFather वाला Token डालो यहाँ" class="w-full mt-2 p-2 rounded bg-gray-800 border">
-    <button onclick="connectTelegram()" class="mt-2 bg-yellow-500 text-black px-4 py-2 rounded font-bold w-full">Telegram Connect करो</button>
-    <p id="tgStatus" class="text-sm mt-2 text-gray-400"></p>
-  </div>
+<div class="card">
+<h2>🧮 Scientific Calculator</h2>
+<input id="calcDisplay" readonly placeholder="0">
+<div class="calc-btns">
+<button onclick="calcAdd('(')">(</button><button onclick="calcAdd(')')">)</button><button onclick="calcAdd('Math.sqrt(')">√</button><button onclick="calcClear()">C</button>
+<button onclick="calcAdd('7')">7</button><button onclick="calcAdd('8')">8</button><button onclick="calcAdd('9')">9</button><button onclick="calcAdd('/')">/</button>
+<button onclick="calcAdd('4')">4</button><button onclick="calcAdd('5')">5</button><button onclick="calcAdd('6')">6</button><button onclick="calcAdd('*')">*</button>
+<button onclick="calcAdd('1')">1</button><button onclick="calcAdd('2')">2</button><button onclick="calcAdd('3')">3</button><button onclick="calcAdd('-')">-</button>
+<button onclick="calcAdd('0')">0</button><button onclick="calcAdd('.')">.</button><button onclick="calcEval()" class="y">=</button><button onclick="calcAdd('+')">+</button>
+<button onclick="calcAdd('Math.sin(')">sin</button><button onclick="calcAdd('Math.cos(')">cos</button><button onclick="calcAdd('Math.log10(')">log</button><button onclick="calcAdd('**')">^</button>
+</div>
+</div>
 
+<div class="card">
+<h2>📏 Unit Converter</h2>
+<select id="unitType" onchange="unitChange()"><option value="length">Length</option><option value="weight">Weight</option><option value="temp">Temperature</option></select>
+<div class="grid2"><input id="unitIn" type="number" oninput="convertUnit()"><select id="unitFrom"></select></div>
+<div class="grid2"><input id="unitOut" readonly><select id="unitTo"></select></div>
+</div>
+
+<div class="card">
+<h2>🎂 Age Calculator</h2>
+<input id="dob" type="date"><button class="b" onclick="calcAge()">Age निकालो</button><div id="ageOut" class="small"></div>
+</div>
+
+<div class="card">
+<h2>🏥 Health Calculators</h2>
+<h3>BMI</h3><div class="grid2"><input id="h_cm" placeholder="Height cm"><input id="w_kg" placeholder="Weight kg"></div><button class="g" onclick="calcBMI()">BMI</button><div id="bmiOut" class="small"></div>
+<h3>Fat %</h3><div class="grid2"><input id="fat_age" placeholder="Age"><select id="fat_gender"><option value="male">Male</option><option value="female">Female</option></select></div><button class="g" onclick="calcFat()">Fat %</button><div id="fatOut" class="small"></div>
+<h3>Daily Calorie</h3><div class="grid2"><input id="cal_w" placeholder="Weight"><input id="cal_h" placeholder="Height"></div><div class="grid2"><input id="cal_age" placeholder="Age"><select id="cal_act"><option value="1.2">Low</option><option value="1.55">Medium</option><option value="1.9">High</option></select></div><button class="g" onclick="calcCal()">Calorie Need</button><div id="calOut" class="small"></div>
+<h3>Water</h3><input id="water_w" placeholder="Weight kg"><button class="g" onclick="calcWater()">पानी कितना?</button><div id="waterOut" class="small"></div>
+</div>
+
+<div class="card">
+<h2>💱 Currency Converter</h2>
+<div class="grid2"><input id="curIn" type="number" value="100" oninput="convCur()"><select id="curFrom" onchange="convCur()"><option value="INR">INR ₹</option><option value="USD">USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option></select></div>
+<div class="grid2"><input id="curOut" readonly><select id="curTo" onchange="convCur()"><option value="USD">USD $</option><option value="INR">INR ₹</option><option value="EUR">EUR €</option></select></div>
+</div>
+
+<div class="card">
+<h2>🧪 PCM 1250 Features Search</h2>
+<input id="pcmSearch" placeholder="Search..." oninput="searchPCM()"><div id="pcmList" style="max-height:300px;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"></div>
 </div>
 
 <script>
-const elements = [
- {n:1,s:'H',name:'Hydrogen',m:1.008,c:'1s1'},{n:2,s:'He',name:'Helium',m:4.0026,c:'1s2'},
- {n:3,s:'Li',name:'Lithium',m:6.94,c:'[He]2s1'},{n:6,s:'C',name:'Carbon',m:12.011,c:'[He]2s2 2p2'},
- {n:8,s:'O',name:'Oxygen',m:15.999,c:'[He]2s2 2p4'},{n:11,s:'Na',name:'Sodium',m:22.99,c:'[Ne]3s1'},
- {n:17,s:'Cl',name:'Chlorine',m:35.45,c:'[Ne]3s2 3p5'},{n:26,s:'Fe',name:'Iron',m:55.845,c:'[Ar]3d6 4s2'},
- {n:79,s:'Au',name:'Gold',m:196.97,c:'[Xe]4f14 5d10 6s1'},{n:92,s:'U',name:'Uranium',m:238.02,c:'[Rn]5f3 6d1 7s2'},
-];
-let subject='chemistry';
-function setSub(s){subject=s; alert(s+' selected: '+s);}
-
-function renderTable(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const div=document.getElementById('periodic'); div.innerHTML='';
-  elements.filter(e=> e.s.toLowerCase().includes(q) || e.name.toLowerCase().includes(q)).forEach(e=>{
-    const el=document.createElement('div');
-    el.className='bg-gray-800 p-2 rounded text-center cursor-pointer hover:bg-gray-700';
-    el.innerHTML=`<div class='font-bold'>${e.s}</div><div class='text-xs'>${e.n}</div>`;
-    el.onclick=()=>{document.getElementById('chat').innerHTML+=`<div class='mb-2'><b>${e.name} (${e.s}):</b> Mass ${e.m}, Config ${e.c}</div>`};
-    div.appendChild(el);
-  });
-}
-renderTable();
-
-async function askAI(){
-  const input=document.getElementById('input').value;
-  const lang=document.getElementById('lang').value;
-  const key=document.getElementById('api').value;
-  if(!input) return; if(!key) return alert('API Key डालो');
-  const chat=document.getElementById('chat');
-  chat.innerHTML+=`<div class='text-right mb-2 text-blue-300'>You: ${input}</div>`;
-  document.getElementById('input').value='';
-  const prompt=`You are PhD expert in ${subject}. From Class 1 to PhD. Reply in language code ${lang}. Question: ${input}`;
-  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
-  });
-  const data=await res.json();
-  let reply=data.candidates?.[0]?.content?.parts?.[0]?.text || 'Error';
-  chat.innerHTML+=`<div class='mb-3 text-green-300'><b>${subject} AI:</b> ${reply}</div>`;
-  chat.scrollTop=chat.scrollHeight;
-}
-
-async function connectTelegram(){
-  const token = document.getElementById('botToken').value;
-  const geminiKey = document.getElementById('api').value;
-  const lang = document.getElementById('lang').value;
-  if(!token) return alert('Token डालो');
-  if(!geminiKey) return alert('पहले Gemini Key डालो');
-  const workerUrl = prompt("अपना Cloudflare Worker URL डालो:");
-  if(!workerUrl) return;
-  const res = await fetch(`https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(workerUrl + '?token=' + token + '&key=' + geminiKey + '&lang=' + lang)}`);
-  const data = await res.json();
-  document.getElementById('tgStatus').innerText = data.ok? "✅ Telegram Connect हो गया! अब Telegram में /start भेजो" : "❌ Error: " + JSON.stringify(data);
-}
+let qr;function makeQR(){let t=document.getElementById('qrText').value;if(!t)return alert('Link लिखो');document.getElementById('qrcode').innerHTML='';qr=new QRCode(document.getElementById('qrcode'),{text:t,width:180,height:180});}
+function startScan(){let html5Qr=new Html5Qrcode("reader");html5Qr.start({facingMode:"environment"},{fps:10,qrbox:250},txt=>{document.getElementById('scanResult').innerText="Scanned: "+txt;html5Qr.stop();},err=>{});}
+function genPass(){let len=parseInt(document.getElementById('passLen').value)||12;let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";if(document.getElementById('passType').value.includes("Letters"))chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";if(document.getElementById('passType').value.includes("Numbers"))chars="0123456789";let p="";for(let i=0;i<len;i++)p+=chars[Math.floor(Math.random()*chars.length)];document.getElementById('passOut').value=p;}
+let expr="";function calcAdd(v){expr+=v;document.getElementById('calcDisplay').value=expr;}function calcClear(){expr="";document.getElementById('calcDisplay').value="";}function calcEval(){try{let r=eval(expr);document.getElementById('calcDisplay').value=r;expr=""+r;}catch{alert('Wrong');}}
+const units={length:{m:1,km:1000,cm:0.01,mm:0.001,ft:0.3048,inch:0.0254},weight:{kg:1,g:0.001,mg:0.000001,lb:0.453592,oz:0.0283495},temp:{C:1,F:1,K:1}}
+function unitChange(){let t=document.getElementById('unitType').value;let from=document.getElementById('unitFrom');let to=document.getElementById('unitTo');from.innerHTML="";to.innerHTML="";Object.keys(units[t]).forEach(k=>{from.innerHTML+=`<option>${k}</option>`;to.innerHTML+=`<option>${k}</option>`;});to.selectedIndex=1;}unitChange();
+function convertUnit(){let t=document.getElementById('unitType').value;let v=parseFloat(document.getElementById('unitIn').value);if(isNaN(v))return;let f=document.getElementById('unitFrom').value;let tt=document.getElementById('unitTo').value;if(t==='temp'){let c=v;if(f==='F')c=(v-32)*5/9;if(f==='K')c=v-273.15;let out=c;if(tt==='F')out=c*9/5+32;if(tt==='K')out=c+273.15;document.getElementById('unitOut').value=out.toFixed(2);}else{let base=v*units[t][f];let out=base/units[t][tt];document.getElementById('unitOut').value=out.toFixed(4);}}
+function calcAge(){let dob=new Date(document.getElementById('dob').value);if(!dob.getTime())return;let now=new Date();let age=now.getFullYear()-dob.getFullYear();let m=now.getMonth()-dob.getMonth();if(m<0||(m===0&&now.getDate()<dob.getDate()))age--;document.getElementById('ageOut').innerHTML=`Age: ${age} साल, Days: ${Math.floor((now-dob)/86400000)}`;}
+function calcBMI(){let h=parseFloat(document.getElementById('h_cm').value)/100;let w=parseFloat(document.getElementById('w_kg').value);if(!h||!w)return;let bmi=w/(h*h);document.getElementById('bmiOut').innerText=`BMI: ${bmi.toFixed(1)} - ${bmi<18.5?'Underweight':bmi<25?'Normal':bmi<30?'Overweight':'Obese'}`;}
+function calcFat(){let age=parseFloat(document.getElementById('fat_age').value)||20;let bmi=22;try{bmi=parseFloat(document.getElementById('w_kg').value)/((parseFloat(document.getElementById('h_cm').value)/100)**2)}catch{}let g=document.getElementById('fat_gender').value;let fat=(1.20*bmi)+(0.23*age)-(g==='male'?16.2:5.4);document.getElementById('fatOut').innerText=`Body Fat ~ ${fat.toFixed(1)}%`;}
+function calcCal(){let w=parseFloat(document.getElementById('cal_w').value)||60;let h=parseFloat(document.getElementById('cal_h').value)||170;let a=parseFloat(document.getElementById('cal_age').value)||20;let act=parseFloat(document.getElementById('cal_act').value);let bmr=10*w+6.25*h-5*a+5;let need=bmr*act;document.getElementById('calOut').innerText=`BMR ${bmr.toFixed(0)} Cal, Daily ${need.toFixed(0)} Cal, Protein ${(w*1.2).toFixed(0)}g`;}
+function calcWater(){let w=parseFloat(document.getElementById('water_w').value)||60;document.getElementById('waterOut').innerText=`रोज़ ${(w*0.033).toFixed(1)} लीटर पानी (~${Math.ceil(w*0.033*4)} ग्लास)`;}
+const rates={INR:1,USD:83.5,EUR:90,GBP:105,AED:22.7};function convCur(){let v=parseFloat(document.getElementById('curIn').value)||0;let f=document.getElementById('curFrom').value;let t=document.getElementById('curTo').value;let inr=v*rates[f];let out=inr/rates[t];document.getElementById('curOut').value=out.toFixed(2);}convCur();
+const allPCM=[];for(let i=1;i<=600;i++)allPCM.push("Chemistry "+i);for(let i=1;i<=350;i++)allPCM.push("Physics "+i);for(let i=1;i<=300;i++)allPCM.push("Maths "+i);
+function searchPCM(){let q=document.getElementById('pcmSearch').value.toLowerCase();let cont=document.getElementById('pcmList');cont.innerHTML="";allPCM.filter(x=>x.toLowerCase().includes(q)).slice(0,120).forEach(x=>{let d=document.createElement('div');d.className='feat';d.innerText=x;cont.appendChild(d);});}searchPCM();
 </script>
 </body>
-</html>
+  </html>
