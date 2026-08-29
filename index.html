@@ -1,114 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>All in One - PCM + Tools</title>
+<title>Lumen Calc - Premium Suite</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <style>
-body{background:#0a0a0a;color:#fff;font-family:system-ui;padding:10px;margin:0}
-.card{background:#121212;border:1px solid #2a2a2a;border-radius:14px;padding:12px;margin:10px 0}
-input,select{width:100%;padding:11px;border-radius:10px;background:#1e293b;color:#fff;border:1px solid #334155;box-sizing:border-box;margin:6px 0}
-button{padding:11px;border-radius:10px;border:0;font-weight:bold;margin:6px 0;width:100%}
-.y{ background:#facc15;color:#000 }.b{ background:#38bdf8;color:#000 }.g{ background:#22c55e;color:#000 }
+*{box-sizing:border-box;font-family:Inter,system-ui}
+body{margin:0;background:#160e2a;color:#fff;min-height:100vh}
+.header{padding:18px 16px 8px;display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;background:#a78bfa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff}
+.header h1{font-size:16px;margin:0;letter-spacing:1px}.header p{margin:0;font-size:11px;letter-spacing:2px;color:#9ca3af}
+.tabs{margin:12px 16px;background:#f3f0ff;border-radius:24px;display:flex;padding:6px;gap:4px}
+.tab{flex:1;padding:12px;border-radius:18px;text-align:center;color:#6b7280;cursor:pointer}
+.tab.active{background:#fff;color:#000}
+.display{margin:12px 16px;background:#ddd8e8;border-radius:20px;padding:16px;min-height:130px;color:#000}
+.display-top{display:flex;justify-content:flex-end;gap:14px;color:#6b7280;font-size:16px;margin-bottom:8px}
+.display input{width:100%;background:transparent;border:0;text-align:right;font-size:28px;font-weight:600;color:#222;outline:none}
+.display.result{text-align:right;font-size:46px;font-weight:800;color:#e879c8;min-height:50px}
+.m-row{display:flex;gap:8px;margin:10px 16px}
+.m-row button{flex:1;background:#3a3450;color:#cbd5e1;border:0;padding:12px;border-radius:22px;font-weight:600;font-size:13px}
+.keys{padding:0 16px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.key{height:62px;border-radius:20px;border:0;background:#9ca3af;color:#000;font-size:20px;font-weight:700}
+.key.op{background:#b8b5c0}.key.eq{background:#f472b6;color:#fff}.key.ac{background:#fff}
+.section{margin:16px;background:#1f1933;border:1px solid #2d2645;border-radius:20px;padding:14px;display:none}
+.section.active{display:block}
+input,select{background:#2a2440;border:1px solid #3d355e;color:#fff;padding:12px;border-radius:12px;width:100%;margin:6px 0}
+button.pill{width:100%;padding:13px;border-radius:14px;border:0;font-weight:800;margin-top:8px}
+.p-y{background:#facc15;color:#000}.p-b{background:#a78bfa;color:#fff}.p-g{background:#22c55e;color:#000}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.feat{background:#1e293b;padding:7px;border-radius:8px;font-size:11px;border:1px solid #334155}
-h2{color:#facc15;margin:8px 0;font-size:16px} h3{color:#38bdf8;margin:10px 0 5px;font-size:13px}
-.small{font-size:11px;color:#94a3b8}
-#qrcode{ background:#fff;padding:10px;border-radius:10px;display:flex;justify-content:center;margin-top:8px }
-.calc-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.calc-btns button{background:#1e293b;color:#fff;border:1px solid #334155}
+.feat{background:#2a2440;padding:8px;border-radius:10px;font-size:11px;border:1px solid #3d355e}
+#qrcode{background:#fff;padding:10px;border-radius:12px;display:flex;justify-content:center}
+.small{font-size:11px;color:#9ca3af}
 </style>
 </head>
 <body>
-
-<div class="card" style="text-align:center">
-<h2 style="margin:0">🚀 ALL IN ONE - PCM + 50 Tools</h2>
-<p class="small">Chemistry 600 + Physics 350 + Maths 300 + QR + Health + Currency</p>
-<input id="mainAsk" placeholder="कुछ भी पूछो - H2SO4 Lewis, Integration, BMI...">
-<button class="y">Ask AI - कल Gemini Key डालेंगे</button>
+<div class="header"><div class="logo"><i class="fa-solid fa-calculator"></i></div><div><h1>Lumen Calc</h1><p>PREMIUM CALCULATOR SUITE</p></div></div>
+<div class="tabs">
+<div class="tab active" onclick="switchTab(0)"><i class="fa-solid fa-calculator"></i></div>
+<div class="tab" onclick="switchTab(1)"><i class="fa-solid fa-flask"></i></div>
+<div class="tab" onclick="switchTab(2)"><i class="fa-solid fa-sliders"></i></div>
+<div class="tab" onclick="switchTab(3)"><i class="fa-solid fa-right-left"></i></div>
 </div>
-
-<div class="card">
-<h2>🔳 QR Code Generator & Scanner</h2>
-<input id="qrText" placeholder="https://youtube.com या कोई भी Text / Link">
-<button class="b" onclick="makeQR()">QR Generate करो</button>
-<div id="qrcode"></div>
-<div id="reader" style="width:100%;margin-top:10px"></div>
-<button class="g" onclick="startScan()">📷 Camera से Scan करो</button>
-<div id="scanResult" class="small" style="color:#22c55e"></div>
+<div id="tab0">
+<div class="display">
+<div class="display-top"><i class="fa-solid fa-microphone" onclick="startVoice()"></i><i class="fa-solid fa-volume-high" onclick="speakResult()"></i><i class="fa-regular fa-copy" onclick="copyResult()"></i></div>
+<input id="expr" readonly><div id="res" class="result">0</div>
 </div>
-
-<div class="card">
-<h2>🔑 Password Generator</h2>
-<div class="grid2">
-<input id="passLen" type="number" value="16">
-<select id="passType"><option>Strong (A-Z+a-z+0-9+@#)</option><option>Only Letters</option><option>Only Numbers</option></select>
-</div>
-<button class="y" onclick="genPass()">Generate Password</button>
-<input id="passOut" readonly>
-</div>
-
-<div class="card">
-<h2>🧮 Scientific Calculator</h2>
-<input id="calcDisplay" readonly placeholder="0">
-<div class="calc-btns">
-<button onclick="calcAdd('(')">(</button><button onclick="calcAdd(')')">)</button><button onclick="calcAdd('Math.sqrt(')">√</button><button onclick="calcClear()">C</button>
-<button onclick="calcAdd('7')">7</button><button onclick="calcAdd('8')">8</button><button onclick="calcAdd('9')">9</button><button onclick="calcAdd('/')">/</button>
-<button onclick="calcAdd('4')">4</button><button onclick="calcAdd('5')">5</button><button onclick="calcAdd('6')">6</button><button onclick="calcAdd('*')">*</button>
-<button onclick="calcAdd('1')">1</button><button onclick="calcAdd('2')">2</button><button onclick="calcAdd('3')">3</button><button onclick="calcAdd('-')">-</button>
-<button onclick="calcAdd('0')">0</button><button onclick="calcAdd('.')">.</button><button onclick="calcEval()" class="y">=</button><button onclick="calcAdd('+')">+</button>
-<button onclick="calcAdd('Math.sin(')">sin</button><button onclick="calcAdd('Math.cos(')">cos</button><button onclick="calcAdd('Math.log10(')">log</button><button onclick="calcAdd('**')">^</button>
+<div class="m-row"><button onclick="mem('MC')">MC</button><button onclick="mem('MR')">MR</button><button onclick="mem('M+')">M+</button><button onclick="mem('M-')">M-</button><button onclick="mem('MS')">MS</button></div>
+<div class="keys">
+<button class="key ac" onclick="clearAll()">AC</button><button class="key op" onclick="addExp('(')">( )</button><button class="key op" onclick="addExp('%')">%</button><button class="key op" onclick="addExp('/')">÷</button>
+<button class="key" onclick="addExp('7')">7</button><button class="key" onclick="addExp('8')">8</button><button class="key" onclick="addExp('9')">9</button><button class="key op" onclick="addExp('*')">×</button>
+<button class="key" onclick="addExp('4')">4</button><button class="key" onclick="addExp('5')">5</button><button class="key" onclick="addExp('6')">6</button><button class="key op" onclick="addExp('-')">-</button>
+<button class="key" onclick="addExp('1')">1</button><button class="key" onclick="addExp('2')">2</button><button class="key" onclick="addExp('3')">3</button><button class="key op" onclick="addExp('+')">+</button>
+<button class="key" onclick="addExp('+-')">±</button><button class="key" onclick="addExp('0')">0</button><button class="key" onclick="addExp('.')">.</button><button class="key eq" onclick="calculate()">=</button>
 </div>
 </div>
-
-<div class="card">
-<h2>📏 Unit Converter</h2>
-<select id="unitType" onchange="unitChange()"><option value="length">Length</option><option value="weight">Weight</option><option value="temp">Temperature</option></select>
-<div class="grid2"><input id="unitIn" type="number" oninput="convertUnit()"><select id="unitFrom"></select></div>
-<div class="grid2"><input id="unitOut" readonly><select id="unitTo"></select></div>
+<div id="tab1" class="section"><h2>🧪 Chemistry 600 Features</h2><input id="chemSearch" placeholder="Search..." oninput="filterChem()"><div id="chemList" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:70vh;overflow:auto;margin-top:8px"></div></div>
+<div id="tab2" class="section">
+<h2>📏 All Tools Premium</h2>
+<h3 style="color:#facc15">🔳 QR Generator & Scanner</h3>
+<input id="qrText" placeholder="Link या Text"><button class="pill p-b" onclick="makeQR()">Generate QR</button><div id="qrcode" style="margin-top:8px"></div>
+<div id="reader" style="margin-top:10px"></div><button class="pill p-g" onclick="startScan()">📷 Scan</button><div id="scanResult" class="small"></div>
+<h3 style="color:#facc15">🔑 Password</h3><div class="grid2"><input id="passLen" type="number" value="16"><select id="passType"><option>Strong</option><option>Letters</option><option>Numbers</option></select></div><button class="pill p-y" onclick="genPass()">Generate</button><input id="passOut" readonly>
+<h3 style="color:#facc15">🏥 Health</h3><div class="grid2"><input id="h_cm" placeholder="Height cm"><input id="w_kg" placeholder="Weight kg"></div><button class="pill p-g" onclick="calcBMI()">BMI</button><div id="bmiOut" class="small"></div>
+<div class="grid2" style="margin-top:6px"><input id="cal_w" placeholder="Weight kg"><input id="cal_age" placeholder="Age"></div><button class="pill p-g" onclick="calcCal()">Calorie Need</button><div id="calOut" class="small"></div>
+<input id="water_w" placeholder="Weight kg" style="margin-top:6px"><button class="pill p-g" onclick="calcWater()">पानी कितना?</button><div id="waterOut" class="small"></div>
+<h3 style="color:#facc15">🎂 Age</h3><input id="dob" type="date"><button class="pill p-b" onclick="calcAge()">Age निकालो</button><div id="ageOut" class="small"></div>
 </div>
-
-<div class="card">
-<h2>🎂 Age Calculator</h2>
-<input id="dob" type="date"><button class="b" onclick="calcAge()">Age निकालो</button><div id="ageOut" class="small"></div>
+<div id="tab3" class="section">
+<h2>💱 Currency + Unit</h2>
+<div class="grid2"><input id="curIn" type="number" value="100" oninput="convCur()"><select id="curFrom" onchange="convCur()"><option value="INR">INR ₹</option><option value="USD">USD $</option></select></div>
+<div class="grid2"><input id="curOut" readonly><select id="curTo" onchange="convCur()"><option value="USD">USD $</option><option value="INR">INR ₹</option></select></div>
+<h3>Unit</h3><select id="unitType" onchange="unitChange()"><option value="length">Length</option><option value="weight">Weight</option><option value="temp">Temp</option></select>
+<div class="grid2"><input id="unitIn" type="number" oninput="convertUnit()"><select id="unitFrom"></select></div><div class="grid2"><input id="unitOut" readonly><select id="unitTo"></select></div>
+<h3>📐 Physics 350 + Maths 300</h3><input id="pcmSearch" placeholder="Search..." oninput="filterPCM()"><div id="pcmList" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:40vh;overflow:auto;margin-top:6px"></div>
 </div>
-
-<div class="card">
-<h2>🏥 Health Calculators</h2>
-<h3>BMI</h3><div class="grid2"><input id="h_cm" placeholder="Height cm"><input id="w_kg" placeholder="Weight kg"></div><button class="g" onclick="calcBMI()">BMI</button><div id="bmiOut" class="small"></div>
-<h3>Fat %</h3><div class="grid2"><input id="fat_age" placeholder="Age"><select id="fat_gender"><option value="male">Male</option><option value="female">Female</option></select></div><button class="g" onclick="calcFat()">Fat %</button><div id="fatOut" class="small"></div>
-<h3>Daily Calorie</h3><div class="grid2"><input id="cal_w" placeholder="Weight"><input id="cal_h" placeholder="Height"></div><div class="grid2"><input id="cal_age" placeholder="Age"><select id="cal_act"><option value="1.2">Low</option><option value="1.55">Medium</option><option value="1.9">High</option></select></div><button class="g" onclick="calcCal()">Calorie Need</button><div id="calOut" class="small"></div>
-<h3>Water</h3><input id="water_w" placeholder="Weight kg"><button class="g" onclick="calcWater()">पानी कितना?</button><div id="waterOut" class="small"></div>
-</div>
-
-<div class="card">
-<h2>💱 Currency Converter</h2>
-<div class="grid2"><input id="curIn" type="number" value="100" oninput="convCur()"><select id="curFrom" onchange="convCur()"><option value="INR">INR ₹</option><option value="USD">USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option></select></div>
-<div class="grid2"><input id="curOut" readonly><select id="curTo" onchange="convCur()"><option value="USD">USD $</option><option value="INR">INR ₹</option><option value="EUR">EUR €</option></select></div>
-</div>
-
-<div class="card">
-<h2>🧪 PCM 1250 Features Search</h2>
-<input id="pcmSearch" placeholder="Search..." oninput="searchPCM()"><div id="pcmList" style="max-height:300px;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"></div>
-</div>
-
 <script>
-let qr;function makeQR(){let t=document.getElementById('qrText').value;if(!t)return alert('Link लिखो');document.getElementById('qrcode').innerHTML='';qr=new QRCode(document.getElementById('qrcode'),{text:t,width:180,height:180});}
-function startScan(){let html5Qr=new Html5Qrcode("reader");html5Qr.start({facingMode:"environment"},{fps:10,qrbox:250},txt=>{document.getElementById('scanResult').innerText="Scanned: "+txt;html5Qr.stop();},err=>{});}
-function genPass(){let len=parseInt(document.getElementById('passLen').value)||12;let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";if(document.getElementById('passType').value.includes("Letters"))chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";if(document.getElementById('passType').value.includes("Numbers"))chars="0123456789";let p="";for(let i=0;i<len;i++)p+=chars[Math.floor(Math.random()*chars.length)];document.getElementById('passOut').value=p;}
-let expr="";function calcAdd(v){expr+=v;document.getElementById('calcDisplay').value=expr;}function calcClear(){expr="";document.getElementById('calcDisplay').value="";}function calcEval(){try{let r=eval(expr);document.getElementById('calcDisplay').value=r;expr=""+r;}catch{alert('Wrong');}}
-const units={length:{m:1,km:1000,cm:0.01,mm:0.001,ft:0.3048,inch:0.0254},weight:{kg:1,g:0.001,mg:0.000001,lb:0.453592,oz:0.0283495},temp:{C:1,F:1,K:1}}
-function unitChange(){let t=document.getElementById('unitType').value;let from=document.getElementById('unitFrom');let to=document.getElementById('unitTo');from.innerHTML="";to.innerHTML="";Object.keys(units[t]).forEach(k=>{from.innerHTML+=`<option>${k}</option>`;to.innerHTML+=`<option>${k}</option>`;});to.selectedIndex=1;}unitChange();
-function convertUnit(){let t=document.getElementById('unitType').value;let v=parseFloat(document.getElementById('unitIn').value);if(isNaN(v))return;let f=document.getElementById('unitFrom').value;let tt=document.getElementById('unitTo').value;if(t==='temp'){let c=v;if(f==='F')c=(v-32)*5/9;if(f==='K')c=v-273.15;let out=c;if(tt==='F')out=c*9/5+32;if(tt==='K')out=c+273.15;document.getElementById('unitOut').value=out.toFixed(2);}else{let base=v*units[t][f];let out=base/units[t][tt];document.getElementById('unitOut').value=out.toFixed(4);}}
-function calcAge(){let dob=new Date(document.getElementById('dob').value);if(!dob.getTime())return;let now=new Date();let age=now.getFullYear()-dob.getFullYear();let m=now.getMonth()-dob.getMonth();if(m<0||(m===0&&now.getDate()<dob.getDate()))age--;document.getElementById('ageOut').innerHTML=`Age: ${age} साल, Days: ${Math.floor((now-dob)/86400000)}`;}
-function calcBMI(){let h=parseFloat(document.getElementById('h_cm').value)/100;let w=parseFloat(document.getElementById('w_kg').value);if(!h||!w)return;let bmi=w/(h*h);document.getElementById('bmiOut').innerText=`BMI: ${bmi.toFixed(1)} - ${bmi<18.5?'Underweight':bmi<25?'Normal':bmi<30?'Overweight':'Obese'}`;}
-function calcFat(){let age=parseFloat(document.getElementById('fat_age').value)||20;let bmi=22;try{bmi=parseFloat(document.getElementById('w_kg').value)/((parseFloat(document.getElementById('h_cm').value)/100)**2)}catch{}let g=document.getElementById('fat_gender').value;let fat=(1.20*bmi)+(0.23*age)-(g==='male'?16.2:5.4);document.getElementById('fatOut').innerText=`Body Fat ~ ${fat.toFixed(1)}%`;}
-function calcCal(){let w=parseFloat(document.getElementById('cal_w').value)||60;let h=parseFloat(document.getElementById('cal_h').value)||170;let a=parseFloat(document.getElementById('cal_age').value)||20;let act=parseFloat(document.getElementById('cal_act').value);let bmr=10*w+6.25*h-5*a+5;let need=bmr*act;document.getElementById('calOut').innerText=`BMR ${bmr.toFixed(0)} Cal, Daily ${need.toFixed(0)} Cal, Protein ${(w*1.2).toFixed(0)}g`;}
-function calcWater(){let w=parseFloat(document.getElementById('water_w').value)||60;document.getElementById('waterOut').innerText=`रोज़ ${(w*0.033).toFixed(1)} लीटर पानी (~${Math.ceil(w*0.033*4)} ग्लास)`;}
-const rates={INR:1,USD:83.5,EUR:90,GBP:105,AED:22.7};function convCur(){let v=parseFloat(document.getElementById('curIn').value)||0;let f=document.getElementById('curFrom').value;let t=document.getElementById('curTo').value;let inr=v*rates[f];let out=inr/rates[t];document.getElementById('curOut').value=out.toFixed(2);}convCur();
-const allPCM=[];for(let i=1;i<=600;i++)allPCM.push("Chemistry "+i);for(let i=1;i<=350;i++)allPCM.push("Physics "+i);for(let i=1;i<=300;i++)allPCM.push("Maths "+i);
-function searchPCM(){let q=document.getElementById('pcmSearch').value.toLowerCase();let cont=document.getElementById('pcmList');cont.innerHTML="";allPCM.filter(x=>x.toLowerCase().includes(q)).slice(0,120).forEach(x=>{let d=document.createElement('div');d.className='feat';d.innerText=x;cont.appendChild(d);});}searchPCM();
+let exp=""; let memVal=0;
+function switchTab(n){document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));document.getElementById('tab0').style.display=n===0?'block':'none';document.querySelectorAll('.section').forEach((s,i)=>s.classList.toggle('active',i===n-1));if(n===0)document.getElementById('tab0').style.display='block';}
+function addExp(v){if(v==='()'){if(exp.includes('(') && (exp.match(/\(/g)||[]).length>(exp.match(/\)/g)||[]).length) exp+=')'; else exp+='(';}else if(v==='+-'){if(exp.startsWith('-'))exp=exp.slice(1); else exp='-'+exp;}else if(v==='%'){exp+='/100';}else exp+=v;document.getElementById('expr').value=exp;try{let r=eval(exp); if(!isNaN(r))document.getElementById('res').innerText=r;}catch{}}
+function clearAll(){exp="";document.getElementById('expr').value="";document.getElementById('res').innerText="0";}
+function calculate(){try{let r=eval(exp);document.getElementById('res').innerText=r;exp=""+r;document.getElementById('expr').value=exp;}catch{document.getElementById('res').innerText="Error";}}
+function mem(c){if(c==='MC')memVal=0; if(c==='MS')memVal=parseFloat(document.getElementById('res').innerText)||0; if(c==='MR'){exp=""+memVal;document.getElementById('expr').value=exp;document.getElementById('res').innerText=memVal;} if(c==='M+')memVal+=parseFloat(document.getElementById('res').innerText)||0; if(c==='M-')memVal-=parseFloat(document.getElementById('res').innerText)||0;}
+function startVoice(){const rec=new (window.webkitSpeechRecognition||window.SpeechRecognition)();rec.lang='en-IN';rec.onresult=e=>{exp=e.results[0][0].transcript.replace(/into/g,'*').replace(/plus/g,'+');document.getElementById('expr').value=exp;calculate();};rec.start();}
+function speakResult(){speechSynthesis.speak(new SpeechSynthesisUtterance(document.getElementById('res').innerText));}
+function copyResult(){navigator.clipboard.writeText(document.getElementById('res').innerText); alert('Copied!');}
+function makeQR(){let t=document.getElementById('qrText').value; if(!t)return; document.getElementById('qrcode').innerHTML=''; new QRCode(document.getElementById('qrcode'),{text:t,width:180,height:180});}
+function startScan(){let qr=new Html5Qrcode("reader");qr.start({facingMode:"environment"},{fps:10,qrbox:250},txt=>{document.getElementById('scanResult').innerText="Scanned: "+txt;qr.stop();},()=>{});}
+function genPass(){let len=parseInt(document.getElementById('passLen').value)||12; let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%"; let p=""; for(let i=0;i<len;i++)p+=chars[Math.floor(Math.random()*chars.length)]; document.getElementById('passOut').value=p;}
+function calcBMI(){let h=parseFloat(document.getElementById('h_cm').value)/100; let w=parseFloat(document.getElementById('w_kg').value); if(!h||!w)return; let b=w/(h*h); document.getElementById('bmiOut').innerText=`BMI ${b.toFixed(1)}`;}
+function calcCal(){let w=parseFloat(document.getElementById('cal_w').value)||60; let a=parseFloat(document.getElementById('cal_age').value)||20; let bmr=10*w+6.25*170-5*a+5; document.getElementById('calOut').innerText=`Daily ${(bmr*1.55).toFixed(0)} Cal`;}
+function calcWater(){let w=parseFloat(document.getElementById('water_w').value)||60; document.getElementById('waterOut').innerText=`${(w*0.033).toFixed(1)} L`;}
+function calcAge(){let d=new Date(document.getElementById('dob').value); if(!d.getTime())return; let n=new Date(); let age=n.getFullYear()-d.getFullYear(); document.getElementById('ageOut').innerText=`Age ${age} साल`;}
+const rates={INR:1,USD:83.5,EUR:90,GBP:105}; function convCur(){let v=parseFloat(document.getElementById('curIn').value)||0; let f=document.getElementById('curFrom').value; let t=document.getElementById('curTo').value; let inr=v*rates[f]; document.getElementById('curOut').value=(inr/rates[t]).toFixed(2);} convCur();
+const units={length:{m:1,km:1000,cm:0.01,ft:0.3048},weight:{kg:1,g:0.001,lb:0.4535},temp:{C:1,F:1,K:1}}
+function unitChange(){let t=document.getElementById('unitType').value; let from=document.getElementById('unitFrom'); let to=document.getElementById('unitTo'); from.innerHTML=""; to.innerHTML=""; Object.keys(units[t]).forEach(k=>{from.innerHTML+=`<option>${k}</option>`; to.innerHTML+=`<option>${k}</option>`;});} unitChange();
+function convertUnit(){let t=document.getElementById('unitType').value; let v=parseFloat(document.getElementById('unitIn').value); if(isNaN(v))return; let f=document.getElementById('unitFrom').value; let tt=document.getElementById('unitTo').value; if(t==='temp'){let c=v; if(f==='F')c=(v-32)*5/9; if(f==='K')c=v-273.15; let o=c; if(tt==='F')o=c*9/5+32; if(tt==='K')o=c+273.15; document.getElementById('unitOut').value=o.toFixed(2);} else {let b=v*units[t][f]; document.getElementById('unitOut').value=(b/units[t][tt]).toFixed(4);}}
+const chem=[]; for(let i=1;i<=600;i++) chem.push(`Chemistry ${i}`); function filterChem(){let s=document.getElementById('chemSearch').value.toLowerCase(); let c=document.getElementById('chemList'); c.innerHTML=""; chem.filter(x=>x.toLowerCase().includes(s)).slice(0,100).forEach(x=>{let d=document.createElement('div'); d.className='feat'; d.innerText=x; c.appendChild(d);});} filterChem();
+const pcm=[]; for(let i=1;i<=650;i++) pcm.push(`Feature ${i} Physics Maths`); function filterPCM(){let s=document.getElementById('pcmSearch').value.toLowerCase(); let c=document.getElementById('pcmList'); c.innerHTML=""; pcm.filter(x=>x.toLowerCase().includes(s)).slice(0,80).forEach(x=>{let d=document.createElement('div'); d.className='feat'; d.innerText=x; c.appendChild(d);});} filterPCM();
+switchTab(0);
 </script>
 </body>
   </html>
